@@ -1,0 +1,44 @@
+SELECT empid, lastname
+FROM HR.employees
+WHERE lastname COLLATE latin1_General_CS_AS = 'Funk';
+
+SELECT custid, city, region, country,
+	CONCAT(city, ', ' + region, ', ' + country) AS location
+FROM Sales.Customers;
+
+SELECT Custid, contactname
+FROM Sales.Customers
+WHERE contactname
+COLLATE Latin1_General_CI_AS = 'miller';
+
+DECLARE @m money = 120.595
+SELECT @m AS unformatted_value,
+FORMAT(@m,'C','zh-cn') AS zh_cn_currency,
+FORMAT(@m,'C','en-us') AS en_us_currency,
+FORMAT(@m,'C','de-de') AS de_de_currency;
+
+SELECT SUBSTRING('Microsoft SQL Server',11,3)
+AS Result;
+
+SELECT LEFT('Microsoft SQL Server',9)
+AS Result;
+
+
+SELECT RIGHT('Microsoft SQL Server',6)
+AS Result;
+
+SELECT LEN('Microsoft SQL Server')
+AS Result;
+
+SELECT
+	GETDATE() AS [GETDATE],
+	CURRENT_TIMESTAMP AS[Current_Timestamp],
+	GETUTCDATE() AS [GetUTCDate],
+	SYSUTCDATETIME() AS [SYSDateTime],
+	SYSDATETIMEOFFSET() AS [SYSDateTimeOffset];
+
+SELECT DATENAME(weekday, '20220531');
+
+SELECT DAY('20220531') AS [DAY],
+MONTH('20220531') AS [MONTH],
+YEAR('20220531') AS [YEAR];
