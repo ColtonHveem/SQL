@@ -1,0 +1,46 @@
+
+SELECT o.Contactname, o.custid,
+(
+SELECT orderid
+	FROM Sales.Orders AS o1
+	WHERE o1.custid = o.custid AND freight = 
+		(SELECT MAX(freight)
+		FROM Sales.Orders AS o2
+		WHERE o1.custid = o2.custid AND YEAR(orderdate) = 2006)
+)AS orderid_2006,
+(
+SELECT orderid
+	FROM Sales.Orders AS o2
+	WHERE o2.custid = o.custid AND freight = 
+		(SELECT MAX(freight)
+		FROM Sales.Orders AS o3
+		WHERE o2.custid = o3.custid AND YEAR(orderdate) = 2007)
+) AS orderid_2007,
+(
+SELECT orderdate
+	FROM Sales.Orders AS o3
+	WHERE o3.custid = o.custid AND freight = 
+		(SELECT MAX(freight)
+		FROM Sales.Orders as o4
+		WHERE o3.custid = o4.custid AND YEAR(orderdate) = 2006)
+) AS orderdate_2006,
+(
+SELECT orderdate
+	FROM Sales.Orders AS o4
+	WHERE o4.custid = o.custid AND freight = 
+		(SELECT MAX(freight)
+		FROM Sales.Orders as o5
+		WHERE o4.custid = o5.custid AND YEAR(orderdate) = 2007)
+) AS orderdate_2007,
+(
+SELECT MAX(freight)
+		FROM Sales.Orders AS o5
+		WHERE o5.custid = o.custid AND YEAR(orderdate) = 2006
+) AS MAXFreight_2006,
+(
+SELECT MAX(freight)
+		FROM Sales.Orders AS o6
+		WHERE o6.custid = o.custid AND YEAR(orderdate) = 2007
+) AS MAXFreight_2007
+
+FROM Sales.Customers AS o
