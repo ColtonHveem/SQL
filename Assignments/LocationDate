@@ -1,0 +1,6 @@
+SELECT c.Contactname, c.fax, c.city AS customercity, c.country AS customercountry, o.orderdate
+FROM Sales.Customers AS c JOIN Sales.Orders AS o
+ON o.custid = c.custid
+WHERE (city = 'Reims' OR city = 'Paris') AND
+(orderdate >= '20071101' AND orderdate <= '20071130')
+ORDER BY orderdate;
