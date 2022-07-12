@@ -1,0 +1,16 @@
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT *
+  FROM [Sales].[Orders]
+  WHERE [empid] = 5 
+  
+  --OrderDate < SYSDATETIME
+  -- * represents all columns
+
+SELECT empid, YEAR(OrderDate) AS OrderYear
+FROM Sales.Orders
+WHERE custid = 71
+GROUP BY empid, YEAR(OrderDate)
+HAVING COUNT(*) > 1
+ORDER BY empid, OrderYear;
+
+-- highlight selected lines of code and press execute to execute just that code
