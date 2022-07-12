@@ -1,0 +1,61 @@
+INSERT INTO Sales.OrderDetails
+(orderid, productid, unitprice, qty, discount) /* values correspond to the list of columns here */
+VALUES (10255,39,18,2,0.05);
+
+INSERT INTO Sales.OrderDetails
+(orderid, productid, unitprice, qty, discount)
+VALUES
+(10256,39,18,2,0.05),
+(10258,39,18,5,0.10);
+/* for additional values in each column, need to create new parenthesis separated by a comma */
+
+INSERT Sales.OrderDetails
+(orderid, productid, unitprice, qty, discount)
+SELECT * FROM NewOrderDetails;
+
+SELECT * INTO NewProducts FROM PRODUCTION.PRODUCTS 
+WHERE ProductID >= 70
+/* creates a brand new table called "New Products" pulling it from production.products */
+
+SELECT * INTO #NewProducts /* # allows the creation of a temporary table */
+FROM PRODUCTION.PRODUCTS
+WHERE ProductID >= 70
+
+SELECT *
+FROM #NewProducts
+
+DROP PROCEDURE IF EXISTS Production.AddNewProducts
+GO
+
+CREATE PROCEDURE Production.AddNewProducts
+AS
+	BEGIN
+		SELECT Productid, productname, SupplierID, CategoryID, Unitprice FROM NewProducts
+	END
+
+INSERT Sales.ORderDetails (orderid, productid, unitprice, qty, discount)
+SELECT * INTO #T1 FROM #NewOrderDetails
+
+SELECT * FROM #T1
+
+INSERT #T1 (orderid, productid, unitprice, qty, discount)
+SELECT * FROM #NewOrderDetails
+
+INSERT #NewOrderDetails2(orderid, productid, unitprice, qty, discount)
+OUTPUT INSERTED *
+SELECT *
+FROM #NewOrderDetails
+
+UPDATE Production.Products
+SET unitprice = (unitprice * 1.04)
+WHERE categoryid = 1 AND discontinued = 0
+
+
+UPDATE Reason -- Notice use of Alias to make reading better 
+SET Name +=  ?
+
+FROM Production.ScrapReason AS Reason 
+INNER JOIN Production.WorkOrder AS WorkOrder
+
+ON Reason.ScrapReasonID = WorkOrder.ScrapReasonID 
+AND WorkOrder.ScrappedQty > 300;
