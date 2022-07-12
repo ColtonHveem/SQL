@@ -1,0 +1,6 @@
+SELECT YEAR(o.orderdate) AS OrderYear, SUM(od.qty) as SumTotal
+FROM Sales.OrderDetails AS od
+JOIN Sales.Orders AS o
+ON od.orderid = o.orderid
+WHERE YEAR(o.orderdate) = 2008
+GROUP BY YEAR(o.orderdate)
