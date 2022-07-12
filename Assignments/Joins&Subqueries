@@ -1,0 +1,34 @@
+SELECT c.contactname, c.fax, c.address, c.city, c.country, o.orderdate
+FROM Sales.Customers as c
+JOIN Sales.Orders as o
+ON c.custid = o.custid
+WHERE c.country = 'Poland' AND o.orderdate >= '20080101' AND o.orderdate <= '20081231'
+ORDER BY orderdate desc
+----
+--Find for each customer find:
+
+-- Contact Name, Customer ID
+
+--How many orders customer placed in 2006
+--How many orders in 2007
+--How many orders 2008
+
+--Final query should have one row per customer, 5 columns
+
+SELECT c.contactname, c.custid,
+(
+SELECT COUNT(custid)
+FROM Sales.Orders AS o1
+WHERE o1.custid = c.custid AND YEAR(orderdate) = 2006
+) AS OrderTotal_2006,
+(
+SELECT COUNT(custid)
+FROM Sales.Orders AS o2
+WHERE o2.custid = c.custid AND YEAR(orderdate) = 2007
+) AS OrderTotal_2007,
+(
+SELECT COUNT(custid)
+FROM Sales.Orders As o3
+WHERE o3.custid = c.custid AND YEAR(orderdate) = 2008
+) AS OrderTotal_2008
+FROM Sales.Customers as c
